@@ -2,18 +2,18 @@
 
 @section('title', 'Profile')
 
-@section('content_header')
-    <h1>Input Sertif</h1>
-@stop
-
 @section('content')
-<div class="row">
+    <div class="row">
 
-    <div class="col-md-8">
-        <!-- Include UserTable Livewire Component -->
-        @livewire('input-sertif')
+        <div class="col-md-10">
+            <!-- Include UserTable Livewire Component -->
+            @livewire('api-sertif')
+        </div>
+        <div class="col-md-10">
+            <!-- Include UserTable Livewire Component -->
+            @livewire('sertif')
+        </div>
     </div>
-</div>
 @stop
 
 @section('css')
@@ -21,5 +21,7 @@
 @stop
 
 @section('js')
-    <script> console.log('Hi!'); </script>
+    <script>
+        console.log('Hi!');
+    </script>
 @stop

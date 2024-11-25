@@ -22,5 +22,9 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/profile', function () {
         return view('admin.profile');
     })->name('profile');
+    Route::get('/sertif', function () {
+        return view('sertif');
+    })->name('sertif');
+
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
