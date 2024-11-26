@@ -22,8 +22,8 @@
         <tbody>
             @foreach ($dataSertifs as $key => $value)
                 <tr>
-                    <td><input type="checkbox" wire:key="{{ $value->id }}" value="{{ $value->id }}"
-                            wire:model.live="employee_selected_id"></td>
+                    {{-- <td><input type="checkbox" wire:key="{{ $value->id }}" value="{{ $value->id }}"
+                            wire:model.live="employee_selected_id"></td> --}}
                     <td>{{ $dataSertifs->firstitem() + $key }}</td>
                     <td>{{ $value->nokontrak }}</td>
                     <td>{{ $value->nama }}</td>
