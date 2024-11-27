@@ -9,7 +9,7 @@
             <!-- Include UserTable Livewire Component -->
             @livewire('api-sertif')
         </div>
-        <div class="col-md-10">
+        <div class="col-md-20">
             <!-- Include UserTable Livewire Component -->
             @livewire('sertif')
         </div>
