@@ -117,14 +117,26 @@
                                     <p><strong>Angsuran Modal:</strong>
                                         {{ number_format($selectedData['angsmdl'] ?? 0, 0, ',', '.') }}</p>
                                     <p><strong>Kode AO:</strong> {{ $selectedData['kdaoh'] }}</p>
+                                    <p><strong>Angsuran Modal + Margin:</strong>
+                                        {{ number_format($selectedData['angsttl'] ?? 0, 0, ',', '.') }}</p>
+                                    <button wire:click="calculatePayment(1)" class="btn btn-outline-primary me-2">1
+                                        Bulan</button>
+                                    <button wire:click="calculatePayment(2)" class="btn btn-outline-primary me-2">2
+                                        Bulan</button>
+                                    <button wire:click="calculatePayment(3)" class="btn btn-outline-primary">3
+                                        Bulan</button>
                             </div>
                             <div class="col-md-6">
                                 <form wire:submit.prevent="store">
                                     <div class="form-group">
                                         <label for="input1">Angsuran Ke BPRS Hikmah Bahari</label>
-                                        <input type="text" id="input1" class="form-control" wire:model="tfangs"
-                                            oninput="formatRupiah(this)"
-                                            value="{{ number_format(($selectedData['angsttl'] ?? 0) * 3 + 15000, 0, ',', '.') }}">
+                                        <input type="text" id="input1" class="form-control" wire:model="tfangsrp"
+                                            oninput="formatRupiah(this)">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input2">Sertif Turun</label>
+                                        <input type="text" id="input2" class="form-control" wire:model="sertiftrn"
+                                            oninput="formatRupiah(this)">
                                     </div>
                                     <div class="form-group">
                                         <label for="input2">Transfer Ke Nasabah</label>
@@ -136,8 +148,18 @@
                                         <input type="text" id="input3" class="form-control" wire:model="sahiratm"
                                             oninput="formatRupiah(this)">
                                     </div>
-                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary">Simpan perubahan</button>
+                                    <div class="form-group">
+                                        <label for="input3">Rekening Pendamping</label>
+                                        <input type="text" class="form-control" wire:model="rekpend">
+                                    </div>
+                                    <div class="form-group">
+                                        <label for="input3">Bank</label>
+                                        <input type="text" class="form-control" wire:model="bank">
+                                    </div>
+                                    <button type="button" class="btn btn-secondary"
+                                        data-dismiss="modal">Tutup</button>
+                                    <button type="button" class="btn btn-primary" wire:click="store()">Simpan
+                                        perubahan</button>
                                 </form>
                             </div>
                             @endif
