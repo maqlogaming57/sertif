@@ -2,16 +2,34 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h3>RIWAYAT SERTIF</h3>
         <div class="p-3 pt-3">
-            <input type="text" class="form-control mb-3 w-25" placeholder="Search..." wire:model.live="katakunci">
+            <div class="d-flex justify-content-between">
+                <!-- Input pertama -->
+                <div class="input-group mb-3 w-25">
+                    <input type="text" class="form-control" placeholder="Cari berdasarkan nama..."
+                        wire:model.live="katakunci" wire:loading.attr="enable">
+                    <span class="input-group-text">
+                        <div wire:loading wire:target="katakunci">
+                            <div class="spinner-border spinner-border-sm" role="status">
+                                <span class="visually-hidden"></span>
+                            </div>
+                        </div>
+                        <i class="bi bi-search" wire:loading.remove wire:target="katakunci"></i>
+                    </span>
+                </div>
+
+                <!-- Tombol export ke xlsx -->
+                <div class="input-group mb-3 w-25">
+                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                    Export to xlsx
+                    </button>
+                </div>
+            </div>
         </div>
-        {{-- @if ($employee_selected_id)
-        <a wire:click="delete_confirmation('')" class="btn btn-danger btn-sm mb-3" data-bs-toggle="modal"
-            data-bs-target="#exampleModal">Del {{ count($employee_selected_id) }} data</a>
-    @endif --}}
         {{ $sertifs->links() }}
+
         <div class="table-responsive">
             <table class="table table-striped table-hover">
-                <thead>
+                <thead class="thead-dark">
                     <tr>
                         <th>No</th>
                         <th>Nokontrak</th>
@@ -36,7 +54,7 @@
                             <td>{{ $value->nokontrak }}</td>
                             <td>{{ $value->nama }}</td>
                             <td>{{ $value->acdrop }}</td>
-                            <td>{{ $value->sahir }}</td>
+                            <td>{{ $value->sahirrp }}</td>
                             <td>{{ $value->saldoblok }}</td>
                             <td>{{ $value->tfangs }}</td>
                             <td>{{ $value->tfnsbh }}</td>
@@ -47,8 +65,7 @@
                             <td>{{ $value->created_at }}</td>
                             <td>
                                 <a wire:click="edit({{ $value->id }})" class="btn btn-warning btn-sm">Edit</a>
-                                <a wire:click="delete_confirmation({{ $value->id }})" class="btn btn-danger btn-sm"
-                                    data-bs-toggle="modal" data-bs-target="#exampleModal">Del</a>
+                                <a wire:click="delete_confirmation({{ $value->id }})" class="btn btn-danger btn-sm">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -57,4 +74,28 @@
         </div>
         {{ $sertifs->links() }}
     </div>
+
+    <!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Periode</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <div class="d-flex justify-content-between">
+            <input type="date" class="form-control">
+            <input type="date" class="form-control">
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+        <button type="button" class="btn btn-primary">Export</button>
+      </div>
+    </div>
+  </div>
+</div>
 </div>

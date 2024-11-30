@@ -38,7 +38,7 @@
             {{-- Data Table --}}
             <div class="table-responsive">
                 <table class="table table-striped table-hover">
-                    <thead>
+                    <thead class="thead-dark">
                         <tr>
                             <th></th>
                             <th>Nokontrak</th>
@@ -81,7 +81,6 @@
                 </table>
             </div>
 
-            {{-- Empty State --}}
             @if (empty($dataSertifs))
                 <div class="text-center py-4">
                     <i class="bi bi-inbox-fill fs-1 text-muted"></i>
@@ -101,6 +100,24 @@
                     </button>
                 </div>
                 <div class="modal-body">
+                    @if ($errors->any())
+                        <div class="pt-3">
+                            <div class="alert alert-danger">
+                                <ul>
+                                    @foreach ($errors->all() as $item)
+                                    <li>{{ $item }}</li>
+                                    @endforeach
+                                </ul>
+                            </div>
+                        </div>      
+                    @endif
+                    @if (session()->has('message'))
+                    <div class="pt-3">
+                        <div class="alert alert-success">
+                            {{ session('message')  }}
+                        </div>
+                    </div>
+                    @endif
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
@@ -127,7 +144,7 @@
                                         Bulan</button>
                             </div>
                             <div class="col-md-6">
-                                <form wire:submit.prevent="store">
+                                <form>
                                     <div class="form-group">
                                         <label for="input1">Angsuran Ke BPRS Hikmah Bahari</label>
                                         <input type="text" id="input1" class="form-control" wire:model="tfangsrp"
@@ -166,10 +183,6 @@
                         </div>
                     </div>
                 </div>
-                {{-- <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
-                    <button type="button" class="btn btn-primary">Simpan perubahan</button>
-                </div> --}}
             </div>
         </div>
     </div>
@@ -177,18 +190,18 @@
 </div>
 
 <script>
-    window.addEventListener('showModal', event => {
-        $('#exampleModalCenter').modal('show'); // Menampilkan modal menggunakan jQuery
-    });
-
     function formatRupiah(input) {
-        // Hanya mengizinkan angka
         let value = input.value.replace(/[^0-9]/g, '');
-
-        // Format dengan titik sebagai pemisah ribuan
         let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-
-        // Perbarui nilai input
         input.value = formatted;
     }
+    document.addEventListener('close-modal', () => {
+        const modal = document.getElementById('exampleModalCenter');
+        if (modal) {
+            const bootstrapModal = bootstrap.Modal.getInstance(modal);
+            if (bootstrapModal) {
+                bootstrapModal.hide();
+            }
+        }
+    });
 </script>

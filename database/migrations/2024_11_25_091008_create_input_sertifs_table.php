@@ -16,7 +16,7 @@ return new class extends Migration
             $table->string('nokontrak');
             $table->string('nama');
             $table->string('acdrop');
-            $table->decimal('sahir', 18, 0);
+            $table->decimal('sahirrp', 18, 0);
             $table->decimal('saldoblok', 18, 0);
             $table->decimal('angsmdl', 18, 0);
             $table->decimal('angsmgn', 18, 0);

@@ -49,7 +49,24 @@ class ApiSertif extends Component
             return;
         }
 
-        // Bersihkan format angka dari pemisah ribuan
+        $rules = [
+            'tfangs' => 'required',
+            'tfnsbh' => 'required',
+            'rekpend' => 'required',
+            'sahiratm' => 'required',
+            'sertiftrn' => 'required',
+        ];
+
+        $messages = [
+            'tfangs' => 'Angsuran Ke BPRS Hikmah Bahari tidak boleh kosong',
+            'tfnsbh' => 'Transfer Ke Nasabah tidak boleh kosong',
+            'rekpend' => 'Rekening Pendamping tidak boleh kosong',
+            'sahiratm' => 'Sisa Saldo ATM tidak boleh kosong',
+            'sertiftrn' => 'Sertif Turun tidak boleh kosong',
+        ];
+
+        $validateData = $this->validate($rules, $messages);
+
         $tfangs = (float)str_replace('.', '', $this->tfangsrp);
         $sertiftrn = (float)str_replace('.', '', $this->sertiftrn);
         $tfnsbh = (float)str_replace('.', '', $this->tfnsbh);
@@ -64,16 +81,29 @@ class ApiSertif extends Component
             'angsmgn' => $this->selectedData['angsmgn'] ?? null,
             'angsmdl' => $this->selectedData['angsmdl'] ?? null,
             'angsttl' => $this->selectedData['angsttl'] ?? null,
+            'kdaoh' => $this->selectedData['kdaoh'] ?? null,
             'tgleff' => $this->selectedData['tgleff'] ?? now()->toDateString(), // Default ke tanggal sekarang
-            'sertiftrn' => $sertiftrn, // Nilai bersih tanpa format
-            'tfangs' => $tfangs,       // Nilai bersih tanpa format
-            'tfnsbh' => $tfnsbh,       // Nilai bersih tanpa format
+            'sertiftrn' => $sertiftrn,
+            'tfangs' => $tfangs,
+            'tfnsbh' => $tfnsbh,
             'rekpend' => $this->rekpend,
             'bank' => $this->bank,
-            'sahiratm' => $sahiratm,   // Nilai bersih tanpa format
+            'sahiratm' => $sahiratm,
         ]);
 
-        session()->flash('success', 'Data berhasil disimpan.');
+        session()->flash('message', 'Data berhasil disimpan.');
+        $this->dispatch('dataStored');
+        $this->clear();
+    }
+
+    public function clear()
+    {
+        $this->sertiftrn = '';
+        $this->tfangs = '';
+        $this->tfnsbh = '';
+        $this->bank = '';
+        $this->rekpend = '';
+        $this->sahiratm = '';
     }
     public function render()
     {
@@ -105,7 +135,6 @@ class ApiSertif extends Component
         $this->render();
     }
 
-    // Di dalam komponen Livewire
     public function selected($nokontrak)
     {
         $data = collect($this->dataSertifs)->firstWhere('nokontrak', $nokontrak);
