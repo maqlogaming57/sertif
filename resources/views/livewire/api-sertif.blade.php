@@ -195,13 +195,4 @@
         let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
         input.value = formatted;
     }
-    document.addEventListener('close-modal', () => {
-        const modal = document.getElementById('exampleModalCenter');
-        if (modal) {
-            const bootstrapModal = bootstrap.Modal.getInstance(modal);
-            if (bootstrapModal) {
-                bootstrapModal.hide();
-            }
-        }
-    });
 </script>
