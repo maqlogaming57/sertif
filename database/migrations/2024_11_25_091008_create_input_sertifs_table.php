@@ -6,9 +6,7 @@ use Illuminate\Support\Facades\Schema;
 
 return new class extends Migration
 {
-    /**
-     * Run the migrations.
-     */
+
     public function up(): void
     {
         Schema::create('input_sertifs', function (Blueprint $table) {
@@ -31,6 +29,8 @@ return new class extends Migration
             $table->string('kdaoh');
             $table->string('tgl', 8);
             $table->string('userinput');
+            $table->string('userupdate');
+            $table->enum('sts', ['A', 'N'])->default('A');
             $table->timestamps();
         });
     }

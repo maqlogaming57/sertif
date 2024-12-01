@@ -20,13 +20,20 @@
                 <!-- Tombol export ke xlsx -->
                 <div class="input-group mb-3 w-25">
                     <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-                    Export to xlsx
+                        Export to xlsx
                     </button>
                 </div>
             </div>
         </div>
         {{ $sertifs->links() }}
-
+        @if (session()->has('message'))
+            <div class="pt-3">
+                <div x-data="{ visible: true }" x-init="setTimeout(() => visible = false, 5000)" x-show="visible" x-transition
+                    class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            </div>
+        @endif
         <div class="table-responsive">
             <table class="table table-striped table-hover">
                 <thead class="thead-dark">
@@ -64,8 +71,10 @@
                             <td>{{ $value->kdaoh }}</td>
                             <td>{{ $value->created_at }}</td>
                             <td>
-                                <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModalCenter">Edit</a>
-                                <a wire:click="delete_confirmation({{ $value->id }})" class="btn btn-danger btn-sm">Delete</a>
+                                <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModalCenter"
+                                    wire:click="edit({{ $value->id }})">Edit</a>
+                                <a wire:click="delete_confirmation({{ $value->id }})" class="btn btn-danger btn-sm"
+                                    data-toggle="modal" data-target="#deleteModal">Delete</a>
                             </td>
                         </tr>
                     @endforeach
@@ -76,47 +85,98 @@
     </div>
 
     <!-- Modal -->
-    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Periode</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
-        </div>
-        <div class="modal-body">
-            <div class="d-flex justify-content-between">
-                <input type="date" class="form-control">
-                <input type="date" class="form-control">
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Periode</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div class="d-flex justify-content-between">
+                        <input type="date" class="form-control">
+                        <input type="date" class="form-control">
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Export</button>
+                </div>
             </div>
         </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Export</button>
-        </div>
-        </div>
     </div>
+    <div wire:ignore.self class="modal fade" id="deleteModal" tabindex="-1" role="dialog"
+        aria-labelledby="deleteModal" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="deleteModal">Konfimasi Delete</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    Apakah mau yakin akan menghapus data ini?
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                        wire:click="delete()">Delete</button>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <div class="modal fade" id="editModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-        <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLongTitle">Modal title</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-            </button>
+    <div wire:ignore.self class="modal fade" id="editModalCenter" tabindex="-1" role="dialog"
+        aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLongTitle">Edit Riwayat Sertif</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <form>
+                        <div class="form-group">
+                            <label for="input1">Angsuran Ke BPRS Hikmah Bahari</label>
+                            <input type="text" id="input1" class="form-control" wire:model="tfangs"
+                                oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="input2">Sertif Turun</label>
+                            <input type="text" id="input2" class="form-control" wire:model="sertiftrn"
+                                oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="input2">Transfer Ke Nasabah</label>
+                            <input type="text" id="input2" class="form-control" wire:model="tfnsbh"
+                                oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="input3">Sisa Saldo ATM</label>
+                            <input type="text" id="input3" class="form-control" wire:model="sahiratm"
+                                oninput="formatRupiah(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="input3">Rekening Pendamping</label>
+                            <input type="text" class="form-control" wire:model="rekpend"
+                                oninput="validateNumber(this)">
+                        </div>
+                        <div class="form-group">
+                            <label for="input3">Bank</label>
+                            <input type="text" class="form-control" wire:model="bank">
+                        </div>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Tutup</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            wire:click="update()">Update</button>
+                    </form>
+                </div>
+            </div>
         </div>
-        <div class="modal-body">
-            ...
-        </div>
-        <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-            <button type="button" class="btn btn-primary">Save changes</button>
-        </div>
-        </div>
-    </div>
     </div>
 </div>
-

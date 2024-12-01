@@ -1,6 +1,6 @@
 @extends('adminlte::page')
 
-@section('title', 'Profile')
+@section('title', 'Input Sertif')
 
 @section('content')
     <div class="row">
@@ -25,3 +25,14 @@
         console.log('Hi!');
     </script>
 @stop
+<script>
+    function formatRupiah(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+        let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        input.value = formatted;
+    }
+
+    function validateNumber(input) {
+        input.value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+    }
+</script>

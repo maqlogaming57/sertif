@@ -1,12 +1,31 @@
 <div>
     <div class="my-3 p-3 bg-body rounded shadow-sm">
+        @if ($errors->any())
+            <div class="pt-3">
+                <div x-data="{ visible: true }" x-init="setTimeout(() => visible = false, 5000)" x-show="visible" x-transition
+                    class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $item)
+                            <li>{{ $item }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+            </div>
+        @endif
+        @if (session()->has('message'))
+            <div class="pt-3">
+                <div x-data="{ visible: true }" x-init="setTimeout(() => visible = false, 5000)" x-show="visible" x-transition
+                    class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            </div>
+        @endif
         <h3>INPUT SERTIF</h3>
 
         {{-- Error Message --}}
         @if ($error)
             <div class="alert alert-danger alert-dismissible fade show" role="alert">
                 {{ $error }}
-                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
             </div>
         @endif
 
@@ -100,24 +119,6 @@
                     </button>
                 </div>
                 <div class="modal-body">
-                    @if ($errors->any())
-                        <div class="pt-3">
-                            <div class="alert alert-danger">
-                                <ul>
-                                    @foreach ($errors->all() as $item)
-                                    <li>{{ $item }}</li>
-                                    @endforeach
-                                </ul>
-                            </div>
-                        </div>      
-                    @endif
-                    @if (session()->has('message'))
-                    <div class="pt-3">
-                        <div class="alert alert-success">
-                            {{ session('message')  }}
-                        </div>
-                    </div>
-                    @endif
                     <div class="container-fluid">
                         <div class="row">
                             <div class="col-md-6">
@@ -162,12 +163,13 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="input3">Sisa Saldo ATM</label>
-                                        <input type="text" id="input3" class="form-control" wire:model="sahiratm"
-                                            oninput="formatRupiah(this)">
+                                        <input type="text" id="input3" class="form-control"
+                                            wire:model="sahiratm" oninput="formatRupiah(this)">
                                     </div>
                                     <div class="form-group">
                                         <label for="input3">Rekening Pendamping</label>
-                                        <input type="text" class="form-control" wire:model="rekpend">
+                                        <input type="text" class="form-control" wire:model="rekpend"
+                                            oninput="validateNumber(this)">
                                     </div>
                                     <div class="form-group">
                                         <label for="input3">Bank</label>
@@ -175,8 +177,8 @@
                                     </div>
                                     <button type="button" class="btn btn-secondary"
                                         data-dismiss="modal">Tutup</button>
-                                    <button type="button" class="btn btn-primary" wire:click="store()">Simpan
-                                        perubahan</button>
+                                    <button type="button" class="btn btn-primary" data-dismiss="modal"
+                                        wire:click="store()">Simpan</button>
                                 </form>
                             </div>
                             @endif
@@ -188,11 +190,3 @@
     </div>
 
 </div>
-
-<script>
-    function formatRupiah(input) {
-        let value = input.value.replace(/[^0-9]/g, '');
-        let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
-        input.value = formatted;
-    }
-</script>

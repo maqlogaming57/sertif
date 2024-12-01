@@ -5,6 +5,7 @@ namespace App\Livewire;
 use App\Models\InputSertif as ModelInput;
 use Livewire\Component;
 use App\Services\SertifApiService;
+use Illuminate\Support\Facades\Auth;
 
 class ApiSertif extends Component
 {
@@ -15,7 +16,7 @@ class ApiSertif extends Component
     public $selectAll = false;
     public $selectedData = null;
     public $dataSertifs = [];
-    public $tfangs, $tfnsbh, $sertiftrn, $sahiratm, $rekpend, $bank, $tfangsrp;
+    public $tfangs, $tfnsbh, $sertiftrn, $sahiratm, $rekpend, $bank, $tfangsrp, $tanggalInput;
 
     protected $sertifService;
 
@@ -71,6 +72,7 @@ class ApiSertif extends Component
         $sertiftrn = (float)str_replace('.', '', $this->sertiftrn);
         $tfnsbh = (float)str_replace('.', '', $this->tfnsbh);
         $sahiratm = (float)str_replace('.', '', $this->sahiratm);
+        $tanggalInput = now()->format('Ymd');
 
         ModelInput::create([
             'nokontrak' => $this->selectedData['nokontrak'] ?? null,
@@ -82,13 +84,15 @@ class ApiSertif extends Component
             'angsmdl' => $this->selectedData['angsmdl'] ?? null,
             'angsttl' => $this->selectedData['angsttl'] ?? null,
             'kdaoh' => $this->selectedData['kdaoh'] ?? null,
-            'tgleff' => $this->selectedData['tgleff'] ?? now()->toDateString(), // Default ke tanggal sekarang
+            'tgleff' => $this->selectedData['tgleff'],
             'sertiftrn' => $sertiftrn,
             'tfangs' => $tfangs,
             'tfnsbh' => $tfnsbh,
             'rekpend' => $this->rekpend,
             'bank' => $this->bank,
             'sahiratm' => $sahiratm,
+            'tgl' => $tanggalInput,
+            'userinput' => Auth::user()->name,
         ]);
 
         session()->flash('message', 'Data berhasil disimpan.');
@@ -99,7 +103,7 @@ class ApiSertif extends Component
     public function clear()
     {
         $this->sertiftrn = '';
-        $this->tfangs = '';
+        $this->tfangsrp = '';
         $this->tfnsbh = '';
         $this->bank = '';
         $this->rekpend = '';

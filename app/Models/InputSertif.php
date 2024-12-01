@@ -26,6 +26,9 @@ class InputSertif extends Model
         'rekpend',
         'bank',
         'kdaoh',
-        'userinput'
+        'tgl',
+        'userinput',
+        'userupdate',
+        'sts'
     ];
 }
