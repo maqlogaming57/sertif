@@ -50,6 +50,8 @@
                         <th>Rek Pendamping</th>
                         <th>Bank</th>
                         <th>Kode AO</th>
+                        <th>User Input</th>
+                        <th>User Update</th>
                         <th>Tanggal</th>
                         <th>Aksi</th>
                     </tr>
@@ -59,16 +61,18 @@
                         <tr>
                             <td>{{ $sertifs->firstitem() + $key }}</td>
                             <td>{{ $value->nokontrak }}</td>
-                            <td>{{ $value->nama }}</td>
+                            <td>{{ $value->nama }} </td>
                             <td>{{ $value->acdrop }}</td>
-                            <td>{{ $value->sahirrp }}</td>
-                            <td>{{ $value->saldoblok }}</td>
-                            <td>{{ $value->tfangs }}</td>
-                            <td>{{ $value->tfnsbh }}</td>
-                            <td>{{ $value->sahiratm }}</td>
+                            <td>{{ number_format($value->sahirrp ?? 0, 0, ',', '.') }}</td>
+                            <td>{{ number_format($value->saldoblok ?? 0, 0, ',', '.') }}</td>
+                            <td>{{ number_format($value->tfangs ?? 0, 0, ',', '.') }}</td>
+                            <td>{{ number_format($value->tfnsbh ?? 0, 0, ',', '.') }}</td>
+                            <td>{{ number_format($value->sahiratm ?? 0, 0, ',', '.') }}</td>
                             <td>{{ $value->rekpend }}</td>
                             <td>{{ $value->bank }}</td>
                             <td>{{ $value->kdaoh }}</td>
+                            <td>{{ $value->userinput }}</td>
+                            <td>{{ $value->userupdate }}</td>
                             <td>{{ $value->created_at }}</td>
                             <td>
                                 <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModalCenter"

@@ -43,12 +43,18 @@ class Sertif extends Component
             'rekpend' => 'required|numeric',
             'bank' => 'required|string',
         ]);
+
+        $tfangs = (float)str_replace('.', '', $this->tfangs);
+        $sertiftrn = (float)str_replace('.', '', $this->sertiftrn);
+        $tfnsbh = (float)str_replace('.', '', $this->tfnsbh);
+        $sahiratm = (float)str_replace('.', '', $this->sahiratm);
         $sertif = ModelsSertif::findOrFail($this->sertifId);
+
         $sertif->update([
-            'tfangs' => $this->tfangs,
-            'sertiftrn' => $this->sertiftrn,
-            'tfnsbh' => $this->tfnsbh,
-            'sahiratm' => $this->sahiratm,
+            'tfangs' => $tfangs,
+            'sertiftrn' => $sertiftrn,
+            'tfnsbh' => $tfnsbh,
+            'sahiratm' => $sahiratm,
             'rekpend' => $this->rekpend,
             'bank' => $this->bank,
             'userupdate' => Auth::user()->name,
