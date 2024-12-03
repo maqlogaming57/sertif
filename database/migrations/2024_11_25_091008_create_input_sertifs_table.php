@@ -27,6 +27,7 @@ return new class extends Migration
             $table->string('rekpend');
             $table->string('bank');
             $table->string('kdaoh');
+            $table->string('kdcab', 2);
             $table->string('tgl', 8);
             $table->string('userinput');
             $table->string('userupdate');
