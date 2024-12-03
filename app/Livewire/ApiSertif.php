@@ -84,6 +84,7 @@ class ApiSertif extends Component
             'angsmdl' => $this->selectedData['angsmdl'] ?? null,
             'angsttl' => $this->selectedData['angsttl'] ?? null,
             'kdaoh' => $this->selectedData['kdaoh'] ?? null,
+            'kdcab' => $this->selectedData['kdcab'] ?? null,
             'tgleff' => $this->selectedData['tgleff'],
             'sertiftrn' => $sertiftrn,
             'tfangs' => $tfangs,

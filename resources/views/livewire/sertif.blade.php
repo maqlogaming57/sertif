@@ -44,6 +44,7 @@
                         <th>Notab</th>
                         <th>Saldo Tab</th>
                         <th>Saldo Blokir</th>
+                        <th>Sertif Turun</th>
                         <th>TF HIK</th>
                         <th>TF Nasabah</th>
                         <th>Sisa Saldo Atm</th>
@@ -65,6 +66,7 @@
                             <td>{{ $value->acdrop }}</td>
                             <td>{{ number_format($value->sahirrp ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->saldoblok ?? 0, 0, ',', '.') }}</td>
+                             <td>{{ number_format($value->sertiftrn ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->tfangs ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->tfnsbh ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->sahiratm ?? 0, 0, ',', '.') }}</td>
@@ -73,7 +75,7 @@
                             <td>{{ $value->kdaoh }}</td>
                             <td>{{ $value->userinput }}</td>
                             <td>{{ $value->userupdate }}</td>
-                            <td>{{ $value->created_at }}</td>
+                            <td>{{ $value->tgl }}</td>
                             <td>
                                 <a class="btn btn-warning btn-sm" data-toggle="modal" data-target="#editModalCenter"
                                     wire:click="edit({{ $value->id }})">Edit</a>
@@ -101,13 +103,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-between">
-                        <input type="date" class="form-control">
-                        <input type="date" class="form-control">
+                      <input type="date" class="form-control" wire:model="start_date">
+                      <input type="date" class="form-control" wire:model="end_date">
                     </div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                    <button type="button" class="btn btn-primary">Export</button>
+                        @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
+                        @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <button type="button" class="btn btn-primary" data-dismiss="modal" wire:click="export()">Export</button>
+                        </div>
                 </div>
             </div>
         </div>

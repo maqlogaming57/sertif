@@ -26,6 +26,7 @@ class InputSertif extends Model
         'rekpend',
         'bank',
         'kdaoh',
+        'kdcab',
         'tgl',
         'userinput',
         'userupdate',

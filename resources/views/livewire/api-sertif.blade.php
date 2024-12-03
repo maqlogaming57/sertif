@@ -135,6 +135,7 @@
                                     <p><strong>Angsuran Modal:</strong>
                                         {{ number_format($selectedData['angsmdl'] ?? 0, 0, ',', '.') }}</p>
                                     <p><strong>Kode AO:</strong> {{ $selectedData['kdaoh'] }}</p>
+                                    <p><strong>Kode Loc:</strong> {{ $selectedData['kdcab'] }}</p>
                                     <p><strong>Angsuran Modal + Margin:</strong>
                                         {{ number_format($selectedData['angsttl'] ?? 0, 0, ',', '.') }}</p>
                                     <button wire:click="calculatePayment(1)" class="btn btn-outline-primary me-2">1

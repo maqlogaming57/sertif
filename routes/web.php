@@ -4,7 +4,6 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
-use App\Livewire\Admin\UserTable;
 
 // Route untuk tamu (belum login)
 Route::middleware(['guest'])->group(function () {
@@ -25,6 +24,5 @@ Route::middleware(['auth'])->group(function () {
     Route::get('/sertif', function () {
         return view('sertif');
     })->name('sertif');
-
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
