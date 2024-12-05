@@ -30,7 +30,7 @@ return new class extends Migration
             $table->string('kdcab', 2);
             $table->string('tgl', 8);
             $table->string('userinput');
-            $table->string('userupdate');
+            $table->string('userupdate')->nullable(true);
             $table->enum('sts', ['A', 'N'])->default('A');
             $table->timestamps();
         });
