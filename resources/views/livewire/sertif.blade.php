@@ -2,9 +2,9 @@
     <div class="my-3 p-3 bg-body rounded shadow-sm">
         <h3>RIWAYAT SERTIF</h3>
         <div class="p-3 pt-3">
-            <div class="d-flex justify-content-between">
+            <div class="d-flex flex-wrap justify-content-between align-items-center">
                 <!-- Input pertama -->
-                <div class="input-group mb-3 w-25">
+                <div class="input-group mb-3 w-25 w-md-25">
                     <input type="text" class="form-control" placeholder="Cari berdasarkan nama..."
                         wire:model.live="katakunci" wire:loading.attr="enable">
                     <span class="input-group-text">
@@ -16,15 +16,16 @@
                         <i class="bi bi-search" wire:loading.remove wire:target="katakunci"></i>
                     </span>
                 </div>
-
-                <!-- Tombol export ke xlsx -->
-                <div class="input-group mb-3 w-25">
-                    <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
+                <!-- Tombol Export -->
+                <div class="input-group mb-3 w-25 w-md-25">
+                    <button type="button" class="btn btn-primary w-100" data-toggle="modal"
+                        data-target="#exampleModal">
                         Export to xlsx
                     </button>
                 </div>
             </div>
         </div>
+
         {{ $sertifs->links() }}
         @if (session()->has('message'))
             <div class="pt-3">
@@ -66,7 +67,7 @@
                             <td>{{ $value->acdrop }}</td>
                             <td>{{ number_format($value->sahirrp ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->saldoblok ?? 0, 0, ',', '.') }}</td>
-                             <td>{{ number_format($value->sertiftrn ?? 0, 0, ',', '.') }}</td>
+                            <td>{{ number_format($value->sertiftrn ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->tfangs ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->tfnsbh ?? 0, 0, ',', '.') }}</td>
                             <td>{{ number_format($value->sahiratm ?? 0, 0, ',', '.') }}</td>
@@ -103,15 +104,20 @@
                 </div>
                 <div class="modal-body">
                     <div class="d-flex justify-content-between">
-                      <input type="date" class="form-control" wire:model="start_date">
-                      <input type="date" class="form-control" wire:model="end_date">
+                        <input type="date" class="form-control" wire:model="start_date">
+                        <input type="date" class="form-control" wire:model="end_date">
                     </div>
-                        @error('start_date') <span class="text-danger">{{ $message }}</span> @enderror
-                        @error('end_date') <span class="text-danger">{{ $message }}</span> @enderror
-                        <div class="modal-footer">
-                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                            <button type="button" class="btn btn-primary" data-dismiss="modal" wire:click="export()">Export</button>
-                        </div>
+                    @error('start_date')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    @error('end_date')
+                        <span class="text-danger">{{ $message }}</span>
+                    @enderror
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary" data-dismiss="modal"
+                            wire:click="export()">Export</button>
+                    </div>
                 </div>
             </div>
         </div>
