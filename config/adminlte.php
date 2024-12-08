@@ -345,7 +345,7 @@ return [
         // ],
         [
             'text' => 'Input Sertif',
-            'url' => '/sertif',
+            'url' => 'sertif',
             'icon' => 'far fa-fw fa-file',
             'label' => 4,
             'label_color' => 'success',
@@ -358,7 +358,7 @@ return [
         ],
         [
             'text' => 'change_password',
-            'url' => 'admin/settings',
+            'url' => 'password/change',
             'icon' => 'fas fa-fw fa-lock',
         ],
         // [

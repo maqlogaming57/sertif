@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\Auth\ChangePasswordController;
 
 // Route untuk tamu (belum login)
 Route::middleware(['guest'])->group(function () {
@@ -25,4 +26,9 @@ Route::middleware(['auth'])->group(function () {
         return view('sertif');
     })->name('sertif');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/password/change', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
+    Route::post('/password/change', [ChangePasswordController::class, 'changePassword'])->name('password.change.post');
 });

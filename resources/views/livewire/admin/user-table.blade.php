@@ -1,5 +1,5 @@
 <div>
-    <div class="card">
+    <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Daftar User</h3>
             <div class="card-tools">
@@ -20,19 +20,19 @@
                 </thead>
                 <tbody>
                     @forelse($users as $user)
-                    <tr>
-                        <td>{{ $user->id }}</td>
-                        <td>{{ $user->name }}</td>
-                        <td>{{ $user->email }}</td>
-                        <td>
-                            <button class="btn btn-sm btn-primary">Edit</button>
-                            <button class="btn btn-sm btn-danger">Hapus</button>
-                        </td>
-                    </tr>
+                        <tr>
+                            <td>{{ $user->id }}</td>
+                            <td>{{ $user->name }}</td>
+                            <td>{{ $user->email }}</td>
+                            <td>
+                                <button class="btn btn-sm btn-primary">Edit</button>
+                                <button class="btn btn-sm btn-danger">Hapus</button>
+                            </td>
+                        </tr>
                     @empty
-                    <tr>
-                        <td colspan="4" class="text-center">Tidak ada data.</td>
-                    </tr>
+                        <tr>
+                            <td colspan="4" class="text-center">Tidak ada data.</td>
+                        </tr>
                     @endforelse
                 </tbody>
             </table>
