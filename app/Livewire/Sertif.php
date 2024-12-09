@@ -27,6 +27,11 @@ class Sertif extends Component
         $this->resetPage();
     }
 
+    public function updatedTfangs($value)
+    {
+        $this->tfangs = str_replace('.', '', $value);
+    }
+
     public function edit($id)
     {
         $sertif = ModelsSertif::findOrfail($id);
@@ -76,10 +81,10 @@ class Sertif extends Component
                     'J1' => 'Rekening Pendamping',
                     'K1' => 'Bank',
                     'L1' => 'Kode AO',
-                    'M1' => 'Kdloc',
-                    'N1' => 'Input User',
-                    'O1' => 'Update User',
-                    'P1' => 'Tanggal',
+                    'N1' => 'colbaru',
+                    'O1' => 'Input User',
+                    'P1' => 'Update User',
+                    'Q1' => 'Tanggal',
                 ];
 
                 foreach ($headers as $cell => $value) {
@@ -102,9 +107,10 @@ class Sertif extends Component
                     $sheet->setCellValue('K' . $rowNumber, $row->bank);
                     $sheet->setCellValue('L' . $rowNumber, $row->kdaoh);
                     $sheet->setCellValue('M' . $rowNumber, $row->kdcab);
-                    $sheet->setCellValue('N' . $rowNumber, $row->userinput);
-                    $sheet->setCellValue('O' . $rowNumber, $row->userupdate);
-                    $sheet->setCellValue('P' . $rowNumber, $row->tgl);
+                    $sheet->setCellValue('N' . $rowNumber, $row->colbaru);
+                    $sheet->setCellValue('O' . $rowNumber, $row->userinput);
+                    $sheet->setCellValue('P' . $rowNumber, $row->userupdate);
+                    $sheet->setCellValue('Q' . $rowNumber, $row->tgl);
                     $rowNumber++;
                 }
 

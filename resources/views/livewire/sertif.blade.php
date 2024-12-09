@@ -5,7 +5,7 @@
             <div class="d-flex flex-wrap justify-content-between align-items-center">
                 <!-- Input pertama -->
                 <div class="input-group mb-3 w-25 w-md-25">
-                    <input type="text" class="form-control" placeholder="Cari berdasarkan nama..."
+                     <input type="text" class="form-control" placeholder="masukan nama / nokontrak"
                         wire:model.live="katakunci" wire:loading.attr="enable">
                     <span class="input-group-text">
                         <div wire:loading wire:target="katakunci">

@@ -23,11 +23,15 @@ class SertifApiService
 
     public function getCustomers($nama = '')
     {
-        $response = Http::withHeaders([
+        $currentDate = date('Y-m-d');
+        $response = Http::withOptions([
+            'verify' => false
+        ])->withHeaders([
             'Authorization' => $this->apiKey,
             'Accept' => 'application/json',
-        ])->post("{$this->baseUrl}/customers", [
-            'nama' => $nama
+        ])->post("{$this->baseUrl}/sertifs", [
+            'nama' => $nama,
+            'date' => $currentDate
         ]);
 
         if ($response->successful()) {

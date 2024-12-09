@@ -27,6 +27,7 @@ class InputSertif extends Model
         'bank',
         'kdaoh',
         'kdcab',
+        'colbaru',
         'tgl',
         'userinput',
         'userupdate',

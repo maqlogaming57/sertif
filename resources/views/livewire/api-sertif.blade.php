@@ -32,7 +32,7 @@
         {{-- Search Input --}}
         <div class="p-3 pt-3">
             <div class="input-group mb-3 w-25">
-                <input type="text" class="form-control" placeholder="Cari berdasarkan nama..."
+                <input type="text" class="form-control" placeholder="masukan nama / nokontrak"
                     wire:model.live="katakunci" wire:loading.attr="enable">
                 <span class="input-group-text">
                     <div wire:loading wire:target="katakunci">
@@ -131,12 +131,13 @@
                                     <p><strong>Saldo Blokir:</strong>
                                         {{ number_format($selectedData['saldoblok'] ?? 0, 0, ',', '.') }}</p>
                                     <p><strong>Angsurang Margin:</strong>
-                                        {{ number_format($selectedData['angsmgn'] ?? 0, 0, ',', '.') }} </p>
+                                        {{ number_format($selectedData['tagmgn'] ?? 0, 0, ',', '.') }} </p>
                                     <p><strong>Angsuran Modal:</strong>
-                                        {{ number_format($selectedData['angsmdl'] ?? 0, 0, ',', '.') }}</p>
+                                        {{ number_format($selectedData['tagmdl'] ?? 0, 0, ',', '.') }}</p>
                                     <p><strong>Kode AO:</strong> {{ $selectedData['kdaoh'] }}</p>
                                     <p><strong>Kode Loc:</strong> {{ $selectedData['kdcab'] }}</p>
                                     <p><strong>Kolekbilitas:</strong> {{ $selectedData['colbaru'] }}</p>
+                                    <p class="text-danger"><span>*Perhatikan Kolekbilitas jika sakdo mencukupi tambahkan dengan tunggakan</span></p>
                                     <p><strong>Angsuran Modal + Margin:</strong>
                                         {{ number_format($selectedData['angsttl'] ?? 0, 0, ',', '.') }}</p>
                                     <button wire:click="calculatePayment(1)" class="btn btn-outline-primary me-2">1

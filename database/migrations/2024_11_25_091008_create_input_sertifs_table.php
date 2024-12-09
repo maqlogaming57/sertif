@@ -19,7 +19,7 @@ return new class extends Migration
             $table->decimal('angsmdl', 18, 0);
             $table->decimal('angsmgn', 18, 0);
             $table->decimal('angsttl', 18, 0);
-            $table->string('tgleff', 18, 0);
+            $table->string('tgleff', 10);
             $table->decimal('sertiftrn', 18, 0);
             $table->decimal('tfangs', 18, 0);
             $table->decimal('tfnsbh', 18, 0);
@@ -27,7 +27,8 @@ return new class extends Migration
             $table->string('rekpend');
             $table->string('bank');
             $table->string('kdaoh');
-            $table->string('kdcab', 2);
+            $table->string('kdcab', 02);
+            $table->string('colbaru', 02);
             $table->string('tgl', 8);
             $table->string('userinput');
             $table->string('userupdate')->nullable(true);
