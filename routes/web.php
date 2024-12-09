@@ -19,15 +19,20 @@ Route::middleware(['guest'])->group(function () {
 // Route untuk user yang sudah login
 Route::middleware(['auth'])->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    Route::get('/profile', function () {
-        return view('admin.profile');
-    })->name('profile');
     Route::get('/sertif', function () {
         return view('sertif');
     })->name('sertif');
     Route::post('/logout', [LoginController::class, 'logout'])->name('logout');
 });
 
+// Route khusus admin
+Route::middleware([\App\Http\Middleware\CheckAdmin::class])->group(function () {
+    Route::get('/profile', function () {
+        return view('admin.profile'); // Halaman ini hanya bisa diakses oleh admin
+    })->name('profile');
+});
+
+// Route untuk perubahan password
 Route::middleware('auth')->group(function () {
     Route::get('/password/change', [ChangePasswordController::class, 'showChangePasswordForm'])->name('password.change');
     Route::post('/password/change', [ChangePasswordController::class, 'changePassword'])->name('password.change.post');

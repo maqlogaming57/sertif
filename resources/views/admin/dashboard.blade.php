@@ -1,7 +1,11 @@
 @extends('adminlte::page')
 
 @section('title', 'Dashboard')
-
+@if (session('error'))
+    <div class="alert alert-danger">
+        {{ session('error') }}
+    </div>
+@endif
 @section('content_header')
     <h1>Dashboard</h1>
 @stop
