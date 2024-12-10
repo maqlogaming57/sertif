@@ -16,7 +16,7 @@ class ApiSertif extends Component
     public $selectAll = false;
     public $selectedData = null;
     public $dataSertifs = [];
-    public $tfangs, $tfnsbh, $sertiftrn, $sahiratm, $rekpend, $bank, $tfangsrp, $tanggalInput;
+    public $tfangs, $tfnsbh, $sertiftrn, $sahiratm, $rekpend, $bank, $tfangsrp, $tanggalInput, $termin;
 
     protected $sertifService;
 
@@ -56,6 +56,7 @@ class ApiSertif extends Component
             'rekpend' => 'required',
             'sahiratm' => 'required',
             'sertiftrn' => 'required',
+            'termin' => 'required',
         ];
 
         $messages = [
@@ -64,6 +65,7 @@ class ApiSertif extends Component
             'rekpend' => 'Rekening Pendamping tidak boleh kosong',
             'sahiratm' => 'Sisa Saldo ATM tidak boleh kosong',
             'sertiftrn' => 'Sertif Turun tidak boleh kosong',
+            'termin' => 'Termin tidak boleh kosong',
         ];
 
         $validateData = $this->validate($rules, $messages);
@@ -88,6 +90,7 @@ class ApiSertif extends Component
             'kdcab' => $this->selectedData['kdcab'] ?? null,
             'tgleff' => $this->selectedData['tgleff'],
             'sertiftrn' => $sertiftrn,
+            'termin' => $this->termin,
             'tfangs' => $tfangs,
             'tfnsbh' => $tfnsbh,
             'rekpend' => $this->rekpend,
@@ -110,6 +113,7 @@ class ApiSertif extends Component
         $this->bank = '';
         $this->rekpend = '';
         $this->sahiratm = '';
+        $this->termin = '';
     }
     public function render()
     {

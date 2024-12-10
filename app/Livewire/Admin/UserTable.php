@@ -9,15 +9,38 @@ use Illuminate\Support\Facades\Hash;
 
 class UserTable extends Component
 {
-    use WithPagination; // Gunakan fitur paginasi Livewire
+    use WithPagination;
 
     public $search = '';
     public $name, $email, $password, $role;
-    public $showModal = false; // Untuk mengatur modal visibility
+    public $showModal = false;
+    public $showDeleteModal = false;
+    public $isEdit = false;
+    public $userId;
+    public $userToDelete; // Menyimpan user yang akan dihapus
 
-    public function openModal()
+    public function openModal($isEdit = false, $id = null)
     {
+        $this->isEdit = $isEdit;
+
+        if ($isEdit && $id) {
+            $user = User::find($id);
+            $this->userId = $user->id;
+            $this->name = $user->name;
+            $this->email = $user->email;
+            $this->role = $user->role;
+            $this->password = ''; // Kosongkan password
+        } else {
+            $this->resetInputFields();
+        }
+
         $this->showModal = true;
+    }
+
+    public function openDeleteModal($id)
+    {
+        $this->userToDelete = $id;
+        $this->showDeleteModal = true;
     }
 
     public function closeModal()
@@ -26,15 +49,32 @@ class UserTable extends Component
         $this->resetInputFields();
     }
 
+    public function closeDeleteModal()
+    {
+        $this->showDeleteModal = false;
+        $this->userToDelete = null;
+    }
+
     public function resetInputFields()
     {
         $this->name = '';
         $this->email = '';
         $this->password = '';
         $this->role = '';
+        $this->userId = null;
+        $this->isEdit = false;
     }
 
     public function saveUser()
+    {
+        if ($this->isEdit) {
+            $this->updateUser();
+        } else {
+            $this->createUser();
+        }
+    }
+
+    public function createUser()
     {
         $this->validate([
             'name' => 'required|string|max:255',
@@ -43,7 +83,6 @@ class UserTable extends Component
             'role' => 'required|in:1,2',
         ]);
 
-        // Simpan data pengguna baru
         User::create([
             'name' => $this->name,
             'email' => $this->email,
@@ -55,9 +94,38 @@ class UserTable extends Component
         session()->flash('message', 'User berhasil ditambahkan');
     }
 
+    public function updateUser()
+    {
+        $this->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $this->userId,
+            'role' => 'required|in:1,2',
+        ]);
+
+        $user = User::find($this->userId);
+        $user->update([
+            'name' => $this->name,
+            'email' => $this->email,
+            'role' => $this->role,
+        ]);
+
+        if ($this->password) {
+            $user->update(['password' => Hash::make($this->password)]);
+        }
+
+        $this->closeModal();
+        session()->flash('message', 'User berhasil diperbarui');
+    }
+
+    public function deleteUser()
+    {
+        User::find($this->userToDelete)->delete();
+        $this->closeDeleteModal();
+        session()->flash('message', 'User berhasil dihapus');
+    }
+
     public function render()
     {
-        // Gunakan fitur pencarian dengan paginasi
         $users = User::query()
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')

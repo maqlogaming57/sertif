@@ -46,12 +46,13 @@
                         <th>Saldo Tab</th>
                         <th>Saldo Blokir</th>
                         <th>Sertif Turun</th>
-                        <th>TF HIK</th>
-                        <th>TF Nasabah</th>
+                        <th>TF Ke HIK</th>
+                        <th>TF Ke Nasabah</th>
                         <th>Sisa Saldo Atm</th>
                         <th>Rek Pendamping</th>
                         <th>Bank</th>
                         <th>Kode AO</th>
+                        <th>Termin</th>
                         <th>User Input</th>
                         <th>User Update</th>
                         <th>Tanggal</th>
@@ -74,6 +75,7 @@
                             <td>{{ $value->rekpend }}</td>
                             <td>{{ $value->bank }}</td>
                             <td>{{ $value->kdaoh }}</td>
+                            <td>{{ $value->termin }}</td>
                             <td>{{ $value->userinput }}</td>
                             <td>{{ $value->userupdate }}</td>
                             <td>{{ $value->tgl }}</td>
@@ -157,13 +159,22 @@
                 <div class="modal-body">
                     <form>
                         <div class="form-group">
-                            <label for="input1">Angsuran Ke BPRS Hikmah Bahari</label>
-                            <input type="text" id="input1" class="form-control" wire:model="tfangs"
+                            <label for="input2">Sertif Turun</label>
+                            <input type="text" id="input2" class="form-control" wire:model="sertiftrn"
                                 oninput="formatRupiah(this)">
                         </div>
                         <div class="form-group">
-                            <label for="input2">Sertif Turun</label>
-                            <input type="text" id="input2" class="form-control" wire:model="sertiftrn"
+                            <label for="termin">Termin Ke</label>
+                            <select id="termin" class="form-control" wire:model="termin">
+                                <option value="" disabled>Termin Ke</option>
+                                <option value="1">1</option>
+                                <option value="2">2</option>
+                                <option value="3">3</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label for="input1">Angsuran Ke BPRS Hikmah Bahari</label>
+                            <input type="text" id="input1" class="form-control" wire:model="tfangs"
                                 oninput="formatRupiah(this)">
                         </div>
                         <div class="form-group">

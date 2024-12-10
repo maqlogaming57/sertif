@@ -16,7 +16,7 @@ class Sertif extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $nokontrak, $nama, $acdrop, $katakunci, $sertifId, $user;
-    public $tfangs, $sertiftrn, $tfnsbh, $sahiratm, $rekpend, $bank;
+    public $tfangs, $sertiftrn, $tfnsbh, $sahiratm, $rekpend, $bank, $termin;
     protected $listeners = ['dataStored' => 'refreshData'];
     public $start_date;
     public $end_date;
@@ -81,10 +81,12 @@ class Sertif extends Component
                     'J1' => 'Rekening Pendamping',
                     'K1' => 'Bank',
                     'L1' => 'Kode AO',
-                    'N1' => 'colbaru',
-                    'O1' => 'Input User',
-                    'P1' => 'Update User',
-                    'Q1' => 'Tanggal',
+                    'M1' => 'Kode Cab',
+                    'N1' => 'Termin',
+                    'O1' => 'colbaru',
+                    'P1' => 'Input User',
+                    'Q1' => 'Update User',
+                    'R1' => 'Tanggal',
                 ];
 
                 foreach ($headers as $cell => $value) {
@@ -107,10 +109,11 @@ class Sertif extends Component
                     $sheet->setCellValue('K' . $rowNumber, $row->bank);
                     $sheet->setCellValue('L' . $rowNumber, $row->kdaoh);
                     $sheet->setCellValue('M' . $rowNumber, $row->kdcab);
-                    $sheet->setCellValue('N' . $rowNumber, $row->colbaru);
-                    $sheet->setCellValue('O' . $rowNumber, $row->userinput);
-                    $sheet->setCellValue('P' . $rowNumber, $row->userupdate);
-                    $sheet->setCellValue('Q' . $rowNumber, $row->tgl);
+                    $sheet->setCellValue('N' . $rowNumber, $row->termin);
+                    $sheet->setCellValue('O' . $rowNumber, $row->colbaru);
+                    $sheet->setCellValue('P' . $rowNumber, $row->userinput);
+                    $sheet->setCellValue('Q' . $rowNumber, $row->userupdate);
+                    $sheet->setCellValue('R' . $rowNumber, $row->tgl);
                     $rowNumber++;
                 }
 
@@ -152,6 +155,7 @@ class Sertif extends Component
         $sertif->update([
             'tfangs' => $tfangs,
             'sertiftrn' => $sertiftrn,
+            'termin' => $this->termin,
             'tfnsbh' => $tfnsbh,
             'sahiratm' => $sahiratm,
             'rekpend' => $this->rekpend,

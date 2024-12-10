@@ -20,6 +20,7 @@ class InputSertif extends Model
         'angsttl',
         'tgleff',
         'sertiftrn',
+        'termin',
         'tfangs',
         'tfnsbh',
         'sahiratm',
