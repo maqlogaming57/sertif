@@ -136,6 +136,7 @@
                                         {{ number_format($selectedData['tagmdl'] ?? 0, 0, ',', '.') }}</p>
                                     <p><strong>Kode AO:</strong> {{ $selectedData['kdaoh'] }}</p>
                                     <p><strong>Kode Loc:</strong> {{ $selectedData['kdcab'] }}</p>
+                                    <p><strong>Tanggal Jatuh Tempo:</strong> {{ $selectedData['tgltagih'] }}</p>
                                     <p><strong>Kolekbilitas:</strong> {{ $selectedData['colbaru'] }}</p>
                                     <p class="text-danger"><span>*Perhatikan Kolekbilitas jika sakdo mencukupi tambahkan dengan tunggakan</span></p>
                                     <p><strong>Angsuran Modal + Margin:</strong>
