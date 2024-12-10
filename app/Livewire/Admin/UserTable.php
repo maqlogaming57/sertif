@@ -67,6 +67,7 @@ class UserTable extends Component
 
     public function saveUser()
     {
+        // dd($this->role);
         if ($this->isEdit) {
             $this->updateUser();
         } else {
@@ -96,10 +97,11 @@ class UserTable extends Component
 
     public function updateUser()
     {
+        // dd($this->role);
         $this->validate([
             'name' => 'required|string|max:255',
             'email' => 'required|email|unique:users,email,' . $this->userId,
-            'role' => 'required|in:1,2',
+            'role' => 'required|',
         ]);
 
         $user = User::find($this->userId);

@@ -68,7 +68,15 @@
             </div>
         </div>
     @endif
-
+    
+     @if (session()->has('message'))
+            <div class="pt-3">
+                <div x-data="{ visible: true }" x-init="setTimeout(() => visible = false, 5000)" x-show="visible" x-transition
+                    class="alert alert-success">
+                    {{ session('message') }}
+                </div>
+            </div>
+        @endif
     <div class="card card-primary">
         <div class="card-header">
             <h3 class="card-title">Daftar User</h3>
@@ -81,7 +89,7 @@
             <table class="table table-hover">
                 <thead>
                     <tr>
-                        <th>ID</th>
+                        <th></th>
                         <th>Nama</th>
                         <th>Email</th>
                         <th>Role</th>
@@ -91,7 +99,7 @@
                 <tbody>
                     @forelse ($users as $user)
                         <tr>
-                            <td>{{ $user->id }}</td>
+                            <td>{{ $loop->iteration }}</td>
                             <td>{{ $user->name }}</td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->role == 1 ? 'Admin' : 'User' }}</td>
