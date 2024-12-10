@@ -23,7 +23,7 @@ class SertifApiService
 
     public function getCustomers($nama = '')
     {
-        $currentDate = date('Y-m-d');
+        $currentDate = date('Y-m-t');
         $response = Http::withOptions([
             'verify' => false
         ])->withHeaders([
