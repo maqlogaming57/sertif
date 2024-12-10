@@ -157,7 +157,7 @@
                                     <div class="form-group">
                                         <label for="termin">Termin Ke</label>
                                         <select id="termin" class="custom-select" wire:model="termin">
-                                            <option selected disabled>Pilih Termin</option>
+                                            <option selected>Pilih Termin</option>
                                             <option value="1">1</option>
                                             <option value="2">2</option>
                                             <option value="3">3</option>
