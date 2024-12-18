@@ -131,7 +131,7 @@ class UserTable extends Component
         $users = User::query()
             ->where('name', 'like', '%' . $this->search . '%')
             ->orWhere('email', 'like', '%' . $this->search . '%')
-            ->paginate(5);
+            ->paginate(25);
 
         return view('livewire.admin.user-table', [
             'users' => $users,
