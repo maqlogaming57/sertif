@@ -140,9 +140,18 @@ class ApiSertif extends Component
         }
     }
 
-    public function updatedKatakunci()
+    public function cariData()
     {
-        $this->render();
+        $this->loading = true;
+
+        try {
+            $data = $this->sertifService->getCustomers($this->katakunci);
+            $this->dataSertifs = $data['data'] ?? [];
+        } catch (\Exception $e) {
+            $this->error = "Terjadi kesalahan saat mengambil data. Silakan coba lagi.";
+        } finally {
+            $this->loading = false;
+        }
     }
 
     public function selected($nokontrak)

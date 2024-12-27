@@ -30,20 +30,13 @@
         @endif
 
         {{-- Search Input --}}
-        <div class="p-3 pt-3">
-            <div class="input-group mb-3 w-25">
-                <input type="text" class="form-control" placeholder="masukan nama / nokontrak"
-                    wire:model.live="katakunci" wire:loading.attr="enable">
-                <span class="input-group-text">
-                    <div wire:loading wire:target="katakunci">
-                        <div class="spinner-border spinner-border-sm" role="status">
-                            <span class="visually-hidden"></span>
-                        </div>
-                    </div>
-                    <i class="bi bi-search" wire:loading.remove wire:target="katakunci"></i>
-                </span>
-            </div>
+        <div class="input-group mb-3 w-25">
+            <input type="text" class="form-control" placeholder="Masukan nama / nokontrak" wire:model.defer="katakunci">
+            <button class="btn btn-primary" wire:click="cariData">
+                <i class="bi bi-search"></i> Cari
+            </button>
         </div>
+
 
         {{-- Main Loading State --}}
         @if ($loading)
