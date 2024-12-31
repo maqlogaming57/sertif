@@ -16,7 +16,7 @@ class Sertif extends Component
     use WithPagination;
     protected $paginationTheme = 'bootstrap';
     public $nokontrak, $nama, $acdrop, $katakunci, $sertifId, $user;
-    public $tfangs, $sertiftrn, $tfnsbh, $sahiratm, $rekpend, $bank, $termin;
+    public $tfangs, $sertiftrn, $tfnsbh, $sahiratm, $rekpend, $bank, $termin, $tfangsrp;
     protected $listeners = ['dataStored' => 'refreshData'];
     public $start_date;
     public $end_date;
@@ -36,14 +36,16 @@ class Sertif extends Component
     {
         $sertif = ModelsSertif::findOrfail($id);
 
-        $this->tfangs = $sertif->tfangs;
-        $this->sertiftrn = $sertif->sertiftrn;
-        $this->tfnsbh = $sertif->tfnsbh;
-        $this->sahiratm = $sertif->sahiratm;
+        $this->tfangs = number_format($sertif->tfangs, 0, ',', '.');
+        $this->sertiftrn = number_format($sertif->sertiftrn, 0, ',', '.');
+        $this->tfnsbh = number_format($sertif->tfnsbh, 0, ',', '.');
+        $this->sahiratm = number_format($sertif->sahiratm, 0, ',', '.');
         $this->rekpend = $sertif->rekpend;
+        $this->termin = $sertif->termin;
         $this->bank = $sertif->bank;
         $this->sertifId = $sertif->id;
     }
+
 
     public function export()
     {
@@ -134,33 +136,23 @@ class Sertif extends Component
         );
     }
 
-
     public function update()
     {
-        $this->validate([
-            'tfangs' => 'required|numeric',
-            'sertiftrn' => 'required|numeric',
-            'tfnsbh' => 'required|numeric',
-            'sahiratm' => 'required|numeric',
-            'rekpend' => 'required|numeric',
-            'bank' => 'required|string',
-        ]);
+        // Konversi kembali dari format rupiah ke angka
+        $tfangs = str_replace('.', '', $this->tfangs);
+        $sertiftrn = str_replace('.', '', $this->sertiftrn);
+        $tfnsbh = str_replace('.', '', $this->tfnsbh);
+        $sahiratm = str_replace('.', '', $this->sahiratm);
 
-        $tfangs = (float)str_replace('.', '', $this->tfangs);
-        $sertiftrn = (float)str_replace('.', '', $this->sertiftrn);
-        $tfnsbh = (float)str_replace('.', '', $this->tfnsbh);
-        $sahiratm = (float)str_replace('.', '', $this->sahiratm);
-        $sertif = ModelsSertif::findOrFail($this->sertifId);
-
+        $sertif = ModelsSertif::find($this->sertifId);
         $sertif->update([
             'tfangs' => $tfangs,
             'sertiftrn' => $sertiftrn,
-            'termin' => $this->termin,
             'tfnsbh' => $tfnsbh,
             'sahiratm' => $sahiratm,
             'rekpend' => $this->rekpend,
             'bank' => $this->bank,
-            'userupdate' => Auth::user()->name,
+            'termin' => $this->termin
         ]);
 
         session()->flash('message', 'Data berhasil diperbarui.');

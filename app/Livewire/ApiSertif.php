@@ -17,6 +17,7 @@ class ApiSertif extends Component
     public $selectedData = null;
     public $dataSertifs = [];
     public $tfangs, $tfnsbh, $sertiftrn, $sahiratm, $rekpend, $bank, $tfangsrp, $tanggalInput, $termin;
+    protected $listeners = ['clear' => 'clear'];
 
     protected $sertifService;
 

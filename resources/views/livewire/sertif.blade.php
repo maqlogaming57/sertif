@@ -166,7 +166,6 @@
                         <div class="form-group">
                             <label for="termin">Termin Ke</label>
                             <select id="termin" class="form-control" wire:model="termin">
-                                <option value="" disabled>Termin Ke</option>
                                 <option value="1">1</option>
                                 <option value="2">2</option>
                                 <option value="3">3</option>

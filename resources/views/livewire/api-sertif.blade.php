@@ -193,7 +193,7 @@
                                         <input type="text" class="form-control" wire:model="bank">
                                     </div>
                                     <button type="button" class="btn btn-secondary"
-                                        data-dismiss="modal">Tutup</button>
+                                        data-dismiss="modal" wire:click="clear">Tutup</button>
                                     <button type="button" class="btn btn-primary" data-dismiss="modal"
                                         wire:click="store()">Simpan</button>
                                 </form>
