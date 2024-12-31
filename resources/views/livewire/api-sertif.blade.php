@@ -29,14 +29,24 @@
             </div>
         @endif
 
-        {{-- Search Input --}}
-        <div class="input-group mb-3 w-25">
-            <input type="text" class="form-control" placeholder="Masukan nama / nokontrak" wire:model.defer="katakunci">
-            <button class="btn btn-primary" wire:click="cariData">
-                <i class="bi bi-search"></i> Cari
-            </button>
+        <div class="d-flex flex-wrap justify-content-between align-items-center">
+            <div class="input-group mb-3 w-25 w-md-25 align-items-center">
+                <input type="text" class="form-control" placeholder="Masukan nama / nokontrak"
+                    wire:model.defer="katakunci">
+                <div class="d-flex align-items-center">
+                    <button class="btn btn-primary d-flex align-items-center" wire:click="cariData" wire:loading.attr="disabled">
+                        <i class="bi bi-search"></i> Cari
+                    </button>
+                    <!-- Spinner Loading -->
+                    <div class="ms-2" wire:loading wire:target="cariData">
+                        <div class="spinner-border spinner-border-sm" role="status">
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
 
+        
 
         {{-- Main Loading State --}}
         @if ($loading)

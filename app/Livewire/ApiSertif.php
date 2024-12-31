@@ -38,8 +38,6 @@ class ApiSertif extends Component
         $angsttl = (int)$this->selectedData['angsttl'];
         $extra = $months * 5000;
         $this->tfangs = ($angsttl * $months) + $extra;
-
-        // Simpan nilai tfangs yang masih berupa angka untuk perhitungan selanjutnya
         $this->tfangsrp = number_format($this->tfangs, 0, ',', '.');  // Format ke dalam bentuk rupiah
     }
 
