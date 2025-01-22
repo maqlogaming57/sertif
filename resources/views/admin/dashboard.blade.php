@@ -11,15 +11,13 @@
 @stop
 
 @section('content')
-    <div class="row">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-body">
-                    <p>Selamat datang di dashboard.</p>
-                </div>
-            </div>
+        <div class="row">
+
+        <div class="col-md-8">
+            <!-- Include UserTable Livewire Component -->
+            @livewire('realisasi')
         </div>
-    </div>
+        </div>
 @stop
 
 @section('css')
@@ -31,3 +29,14 @@
         console.log('Hi!');
     </script>
 @stop
+<script>
+    function formatRupiah(input) {
+        let value = input.value.replace(/[^0-9]/g, '');
+        let formatted = value.replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+        input.value = formatted;
+    }
+
+    function validateNumber(input) {
+        input.value = input.value.replace(/[^0-9]/g, ''); // Hanya angka
+    }
+</script>
