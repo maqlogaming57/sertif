@@ -15,7 +15,7 @@
             <thead>
                 <tr>
                     <th>Cabang</th>
-                    <th>Tanggal</th>
+                    <th>Bulan</th>
                     <th>Sertif Turun</th>
                 </tr>
             </thead>
